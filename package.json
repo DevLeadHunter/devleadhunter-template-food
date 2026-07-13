@@ -1,8 +1,8 @@
 {
-  "name": "devleadhunter-website-template-starter",
+  "name": "devleadhunter-template-food",
   "type": "module",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",

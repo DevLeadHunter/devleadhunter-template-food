@@ -10,7 +10,7 @@ const currentDir: string = dirname(fileURLToPath(import.meta.url))
 // about the tunnel (Storyblok, PostHog, slugs, DB) — it renders a typed `SiteContent`.
 export default defineNuxtConfig({
   $meta: {
-    name: 'devleadhunter-website-template-starter',
+    name: 'devleadhunter-template-food',
   },
 
   compatibilityDate: '2025-07-15',

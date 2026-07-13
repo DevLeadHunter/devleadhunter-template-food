@@ -26,3 +26,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Design extraction scratch
+.design-extract
+.compare

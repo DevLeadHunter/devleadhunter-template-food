@@ -1,7 +1,5 @@
 <template>
-  <DevLeadHunterStarterRoot :content="mockSiteContent" />
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
-
-<script lang="ts" setup>
-import { mockSiteContent } from '../../content'
-</script>
