@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+
+/*
+ * Scan the layer's components/composables so Tailwind v4 generates their utility classes
+ * when this template is consumed by demo-host via `extends` (from the giget/npm cache).
+ * Path: app/assets/css/ → app/
+ */
+@source '../../**/*.{vue,ts}';
+
+/*
+ * Neutral placeholder design tokens. This is what makes each template look different —
+ * replace the font and colors with your template's own art direction (DA).
+ */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #2f6df0;
+  --color-brand-soft: #5b8ef5;
+  --color-surface: #ffffff;
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+}
