@@ -2,7 +2,7 @@
   "name": "devleadhunter-template-food",
   "type": "module",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",

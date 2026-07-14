@@ -5,7 +5,8 @@
  * restauration / food truck). Miroir de `api/services/templates/food.py`.
  *
  * Règle : une clé absente / vide → on n'affiche pas le bloc (pas de faux Instagram,
- * pas de prix inventés sur des services scrapés, pas d'images cassées).
+ * pas de prix inventés sur des services scrapés). Images manquantes → Unsplash
+ * food / street food cohérent (jamais de trou visuel).
  */
 import type { SiteContent } from '~/types/SiteContent'
 
@@ -89,12 +90,21 @@ export interface FoodPageContent {
   copyright: string
 }
 
-/** URLs Unsplash vérifiées (200) — fallbacks menu / collage uniquement. */
+/**
+ * Pool Unsplash food / street food — utilisé dès qu'une image prospect manque
+ * (hero, about, collage, menu, avis). Toujours une image cohérente, jamais un trou.
+ */
+const FALLBACK_HERO_IMAGE =
+  'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?auto=format&fit=crop&w=1400&q=75'
+const FALLBACK_ABOUT_IMAGE =
+  'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=70'
 const FALLBACK_DISH_IMAGES: string[] = [
   'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=70',
   'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=70',
   'https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=70',
   'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=70',
+  'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=70',
+  'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=800&q=70',
 ]
 
 const SOCIAL_ICONS: Record<string, string> = {
@@ -166,6 +176,20 @@ function resolveText(value: string | undefined, fallback: string): string {
 
 function nonEmpty(value: string | undefined | null): string {
   return typeof value === 'string' ? value.trim() : ''
+}
+
+function firstImage(...candidates: Array<string | undefined | null>): string {
+  for (const candidate of candidates) {
+    const value = nonEmpty(candidate)
+    if (value) {
+      return value
+    }
+  }
+  return ''
+}
+
+function fallbackDish(index: number): string {
+  return FALLBACK_DISH_IMAGES[index % FALLBACK_DISH_IMAGES.length] ?? FALLBACK_DISH_IMAGES[0]
 }
 
 function formatPhoneDisplay(phone: string): string {
@@ -258,14 +282,12 @@ export function buildFoodContent(content: SiteContent): FoodPageContent {
         .map((service, index) => {
           const rawDesc: string = nonEmpty(service?.description)
           const { text, price } = extractPrice(rawDesc)
-          const iconImage: string = nonEmpty(service?.icon)
-          const galleryImage: string = gallery[index]?.url ?? ''
           return {
             title: nonEmpty(service?.title),
             description: text,
             // Prix uniquement s'il est dans la description — jamais inventé.
             price,
-            image: iconImage || galleryImage || '',
+            image: firstImage(service?.icon, gallery[index]?.url, fallbackDish(index)),
           }
         })
         .filter((item) => item.title.length > 0)
@@ -295,19 +317,29 @@ export function buildFoodContent(content: SiteContent): FoodPageContent {
         .filter((item): item is FoodSocialItem => item !== null)
     : []
 
-  const heroImage: string = nonEmpty(content.heroImage) || gallery[0]?.url || ''
-  const aboutImage: string =
-    nonEmpty(content.aboutImage) || gallery[1]?.url || gallery[0]?.url || ''
+  const heroImage: string = firstImage(content.heroImage, gallery[0]?.url, FALLBACK_HERO_IMAGE)
+  const aboutImage: string = firstImage(
+    content.aboutImage,
+    gallery[1]?.url,
+    gallery[0]?.url,
+    FALLBACK_ABOUT_IMAGE,
+  )
 
-  // Collage : 3 sources distinctes autant que possible.
-  const collageLeft: string = gallery[0]?.url || heroImage || ''
-  const collageCenter: string = aboutImage || gallery[1]?.url || collageLeft
-  const collageRight: string =
-    gallery[2]?.url ||
-    gallery[3]?.url ||
-    (gallery[1]?.url && gallery[1].url !== collageCenter ? gallery[1].url : '') ||
-    gallery[0]?.url ||
-    ''
+  // Collage : 3 sources distinctes autant que possible, sinon Unsplash.
+  const collageLeft: string = firstImage(gallery[0]?.url, heroImage, fallbackDish(0))
+  const collageCenter: string = firstImage(
+    aboutImage,
+    gallery[1]?.url,
+    gallery[0]?.url,
+    FALLBACK_ABOUT_IMAGE,
+  )
+  const collageRight: string = firstImage(
+    gallery[2]?.url,
+    gallery[3]?.url,
+    gallery[1]?.url !== collageCenter ? gallery[1]?.url : undefined,
+    fallbackDish(2),
+  )
+  const reviewImage: string = firstImage(gallery[2]?.url, aboutImage, heroImage, fallbackDish(3))
 
   const infoItems: FoodInfoItem[] = []
   if (locationText) {
@@ -387,7 +419,7 @@ export function buildFoodContent(content: SiteContent): FoodPageContent {
     reviewQuote: hasReview ? nonEmpty(review?.text) : '',
     reviewAuthor: hasReview ? nonEmpty(review?.author) : '',
     reviewCity: city || area,
-    reviewImage: gallery[2]?.url || aboutImage || heroImage || '',
+    reviewImage,
     features: [...defaults.features],
     contactLabel: defaults.contactLabel,
     contactHeading: resolveText(content.contactHeading, defaults.contactHeading),

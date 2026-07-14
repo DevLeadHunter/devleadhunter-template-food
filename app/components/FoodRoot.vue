@@ -38,10 +38,12 @@ const page: ComputedRef<FoodPageContent> = computed((): FoodPageContent =>
 )
 
 const themeVars: ComputedRef<Record<string, string>> = computed((): Record<string, string> => ({
+  // Vert forêt par défaut ; overridable via SiteContent.palette (ex. bleu en builder).
   '--color-brand': page.value.theme.primary,
   '--color-ink': page.value.theme.primary,
   '--color-cream': page.value.theme.secondary,
   '--color-accent': page.value.theme.accent,
+  '--color-surface': '#ffffff',
 }))
 
 /** Logo prospect → favicon ; sinon favicon DA de la template. */

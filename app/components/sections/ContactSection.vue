@@ -114,9 +114,13 @@
             :aria-label="social.name"
             target="_blank"
             rel="noopener noreferrer">
-            <img
-              :src="social.icon"
-              alt="" />
+            <span
+              class="contact__social-icon"
+              :style="{
+                maskImage: `url(${social.icon})`,
+                WebkitMaskImage: `url(${social.icon})`,
+              }"
+              aria-hidden="true" />
           </a>
         </div>
 
@@ -299,9 +303,17 @@ function onSubmit(): void {
   background: var(--color-accent);
 }
 
-.contact__social img {
+.contact__social-icon {
+  display: block;
   width: 18px;
   height: 18px;
+  background: var(--color-brand);
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
 }
 
 .contact__copy {

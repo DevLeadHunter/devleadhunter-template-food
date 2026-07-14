@@ -1,15 +1,19 @@
 <template>
   <div
     class="wave"
-    :class="`wave--${tone}`"
+    :class="[`wave--${tone}`, { 'wave--masked': tone === 'dark' }]"
+    :style="maskStyle"
     aria-hidden="true">
     <img
+      v-if="tone !== 'dark'"
       :src="src"
       alt="" />
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { ComputedRef } from 'vue'
+
 const props = withDefaults(
   defineProps<{
     tone?: 'white' | 'light' | 'dark'
@@ -26,6 +30,21 @@ const srcMap = {
 } as const
 
 const src = srcMap[props.tone]
+
+/**
+ * Vague sombre : masque CSS teinté avec `--color-brand`
+ * (le SVG source est figé en vert forêt).
+ */
+const maskStyle: ComputedRef<Record<string, string> | undefined> = computed(() => {
+  if (props.tone !== 'dark') {
+    return undefined
+  }
+  const url = `url(${src})`
+  return {
+    maskImage: url,
+    WebkitMaskImage: url,
+  }
+})
 </script>
 
 <style scoped>
@@ -39,7 +58,6 @@ const src = srcMap[props.tone]
 .wave img {
   display: block;
   width: 100%;
-  /* Expanded viewBox includes solid body + jagged fringe */
   height: 56px;
   object-fit: fill;
   object-position: center top;
@@ -60,7 +78,13 @@ const src = srcMap[props.tone]
   margin-bottom: -1px;
 }
 
-.wave--dark img {
+.wave--masked {
   height: 56px;
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center top;
+  -webkit-mask-position: center top;
 }
 </style>
