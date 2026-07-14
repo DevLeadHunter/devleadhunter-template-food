@@ -20,6 +20,7 @@ export const mockSiteContent: SiteContent = {
     'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?auto=format&fit=crop&w=1400&q=75',
   aboutImage:
     'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=70',
+  logo: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=128&h=128&q=80',
   gallery: [
     {
       url: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=1200&q=70',
