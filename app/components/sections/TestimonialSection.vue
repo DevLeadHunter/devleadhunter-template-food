@@ -156,10 +156,10 @@ import WaveSeparator from './WaveSeparator.vue'
   max-width: 575px;
 }
 
-/* Pencil quote-icon 44×30.25 — bump scale to match Figma visual weight */
+/* Pencil quote-icon 44×30.25 */
 .testimonial__mark {
-  width: 88px;
-  height: 60.5px;
+  width: 44px;
+  height: 30.25px;
 }
 
 .testimonial__text {
@@ -206,17 +206,22 @@ import WaveSeparator from './WaveSeparator.vue'
 }
 
 .testimonial__feature-icon {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 80px;
   height: 80px;
-  border-radius: 100px;
+  border-radius: 50%;
   background: var(--color-brand);
+  overflow: visible;
 }
 
 .testimonial__feature-icon img {
-  width: 36px;
-  height: 36px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .testimonial__feature-item h3 {
@@ -266,8 +271,8 @@ import WaveSeparator from './WaveSeparator.vue'
   }
 
   .testimonial__mark {
-    width: 66px;
-    height: 45px;
+    width: 44px;
+    height: 30px;
   }
 }
 </style>

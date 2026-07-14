@@ -33,11 +33,26 @@ const src = srcMap[props.tone]
   display: block;
   width: 100%;
   line-height: 0;
+  overflow: hidden;
 }
 
 .wave img {
+  display: block;
   width: 100%;
-  height: 37px;
+  height: 38px;
   object-fit: fill;
+}
+
+/*
+  Dark tear: green jagged edge sitting on the brand block.
+  Negative margin pulls it flush with the contact body below.
+*/
+.wave--dark {
+  background: var(--color-brand);
+  margin-bottom: -1px;
+}
+
+.wave--dark img {
+  height: 44px;
 }
 </style>

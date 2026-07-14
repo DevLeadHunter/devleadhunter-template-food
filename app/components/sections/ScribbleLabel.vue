@@ -25,12 +25,13 @@ const props = withDefaults(
   },
 )
 
+/** Pencil-rendered underlines (rotation baked in export) */
 const srcMap = {
-  hero: '/images/underline-hero.svg',
-  about: '/images/underline-about.svg',
-  menu: '/images/underline-menu.svg',
-  testimonial: '/images/underline-testimonial.svg',
-  contact: '/images/underline-contact.svg',
+  hero: '/images/underline-hero.png',
+  about: '/images/underline-about.png',
+  menu: '/images/underline-menu.png',
+  testimonial: '/images/underline-testimonial.png',
+  contact: '/images/underline-contact.png',
 } as const
 
 const src = srcMap[props.kind]
@@ -38,20 +39,21 @@ const src = srcMap[props.kind]
 
 <style scoped>
 .scribble-label {
-  position: relative;
   display: inline-flex;
-  align-items: center;
-  min-height: 39px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.7px;
-  text-transform: lowercase;
+  text-transform: uppercase;
   color: var(--color-brand);
   line-height: 1.2;
 }
 
 .scribble-label--center {
-  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .scribble-label--white {
@@ -59,78 +61,26 @@ const src = srcMap[props.kind]
 }
 
 .scribble-label__text {
-  position: relative;
-  z-index: 1;
   white-space: nowrap;
 }
 
-/*
-  Pencil scribble underlines: path ~54×67, rotation -49.687°.
-  Positions taken from .pen divider frames (x/y of the path).
-*/
 .scribble-label__mark {
-  position: absolute;
-  width: 53.9px;
-  height: 67.3px;
+  display: block;
+  width: 86px;
+  height: auto;
   pointer-events: none;
-  z-index: 0;
-  transform: rotate(-49.687deg);
-  transform-origin: center center;
+  user-select: none;
 }
 
-.scribble-label--hero {
-  width: 97px;
-}
-
-.scribble-label--hero .scribble-label__mark {
-  left: 53.32px;
-  top: -6px;
-}
-
-.scribble-label--about {
-  width: 90px;
-}
-
-.scribble-label--about .scribble-label__mark {
-  left: 46.88px;
-  top: -7px;
-}
-
-.scribble-label--menu {
-  width: 93px;
-}
-
-.scribble-label--menu .scribble-label__mark {
-  left: 49.38px;
-  top: -7px;
-}
-
-.scribble-label--testimonial {
-  width: 140px;
-}
-
-.scribble-label--testimonial .scribble-label__mark {
-  left: 95.32px;
-  top: -14px;
-}
-
-/*
-  Contact: flat peach wave under the label (gap 20 in Pencil),
-  not the rotated scribble (that path is disabled in the .pen).
-*/
 .scribble-label--contact {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
   gap: 20px;
-  min-height: 0;
-  width: auto;
 }
 
 .scribble-label--contact .scribble-label__mark {
-  position: static;
-  width: 84.57px;
-  height: 7.39px;
-  transform: none;
+  width: 85px;
+}
+
+.scribble-label--testimonial .scribble-label__mark {
+  width: 100px;
 }
 </style>

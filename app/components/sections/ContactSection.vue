@@ -17,8 +17,10 @@
             align="center"
             >{{ contact.label }}</ScribbleLabel
           >
-          <h2 class="contact__title">{{ contact.title }}</h2>
-          <p class="contact__desc">{{ contact.description }}</p>
+          <div class="contact__heading-copy">
+            <h2 class="contact__title">{{ contact.title }}</h2>
+            <p class="contact__desc">{{ contact.description }}</p>
+          </div>
         </div>
 
         <form
@@ -145,7 +147,7 @@ function onSubmit(): void {
   overflow: hidden;
   background: var(--color-brand);
   color: #fff;
-  padding: 109px 0 72px;
+  padding: 80px 0 72px;
 }
 
 .contact__deco {
@@ -169,9 +171,17 @@ function onSubmit(): void {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 30px;
   max-width: 615px;
   text-align: center;
+}
+
+.contact__heading-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
 .contact__title {
@@ -179,6 +189,7 @@ function onSubmit(): void {
   font-family: var(--font-display);
   font-size: clamp(32px, 3.4vw, 48px);
   line-height: 1.15;
+  white-space: nowrap;
 }
 
 .contact__desc {
@@ -278,6 +289,10 @@ function onSubmit(): void {
 
   .contact__inner {
     gap: 40px;
+  }
+
+  .contact__title {
+    white-space: normal;
   }
 
   .contact__desc {

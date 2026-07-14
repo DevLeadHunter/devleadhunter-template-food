@@ -16,12 +16,6 @@
         </div>
 
         <img
-          class="hero__leaf"
-          src="/images/deco-hero-leaf.svg"
-          alt=""
-          aria-hidden="true" />
-
-        <img
           class="hero__thumb"
           :src="hero.image"
           :alt="hero.title" />
@@ -105,15 +99,6 @@ import ScribbleLabel from './ScribbleLabel.vue'
   border-radius: var(--radius-arch) var(--radius-arch) 0 0;
 }
 
-.hero__leaf {
-  position: absolute;
-  left: 38.6%; /* 452/1171 */
-  top: 8.3%; /* 51/612 */
-  width: 8%; /* ~94px */
-  z-index: 3;
-  pointer-events: none;
-}
-
 .hero__blob {
   position: absolute;
   left: 51.4%; /* 602/1171 */
@@ -135,7 +120,6 @@ import ScribbleLabel from './ScribbleLabel.vue'
 
   .hero__copy,
   .hero__thumb,
-  .hero__leaf,
   .hero__blob {
     position: static;
   }
@@ -157,7 +141,6 @@ import ScribbleLabel from './ScribbleLabel.vue'
     justify-self: end;
   }
 
-  .hero__leaf,
   .hero__blob {
     display: none;
   }
