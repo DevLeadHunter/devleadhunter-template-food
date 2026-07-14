@@ -1,27 +1,31 @@
 <template>
-  <div class="food-root">
-    <HeroSection />
-    <AboutSection />
-    <MenuSection />
-    <TestimonialSection />
-    <ContactSection />
+  <div
+    class="food-root"
+    :style="themeVars">
+    <HeroSection :page="page" />
+    <AboutSection :page="page" />
+    <MenuSection :page="page" />
+    <TestimonialSection :page="page" />
+    <ContactSection :page="page" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
+/**
+ * Template `food` — food truck / street food (DA crème & vert forêt).
+ * Racine publique : rend un `SiteContent` typé, sans dépendance au tunnel.
+ */
+import type { ComputedRef, PropType } from 'vue'
 import type { SiteContent } from '~/types/SiteContent'
+import { buildFoodContent } from '~/types/food'
+import type { FoodPageContent } from '~/types/food'
 import HeroSection from './sections/HeroSection.vue'
 import AboutSection from './sections/AboutSection.vue'
 import MenuSection from './sections/MenuSection.vue'
 import TestimonialSection from './sections/TestimonialSection.vue'
 import ContactSection from './sections/ContactSection.vue'
 
-/**
- * Root component of the food template — public entry point for demo-host later.
- * For now sections use hardcoded Pencil content (no SiteContent wiring yet).
- */
-defineProps({
+const props = defineProps({
   content: {
     type: Object as PropType<SiteContent>,
     required: false,
@@ -29,7 +33,19 @@ defineProps({
   },
 })
 
+const page: ComputedRef<FoodPageContent> = computed((): FoodPageContent =>
+  buildFoodContent(props.content),
+)
+
+const themeVars: ComputedRef<Record<string, string>> = computed((): Record<string, string> => ({
+  '--color-brand': page.value.theme.primary,
+  '--color-ink': page.value.theme.primary,
+  '--color-cream': page.value.theme.secondary,
+  '--color-accent': page.value.theme.accent,
+}))
+
 useHead({
+  title: page.value.businessName,
   link: [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },

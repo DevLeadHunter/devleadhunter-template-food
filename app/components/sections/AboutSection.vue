@@ -5,7 +5,7 @@
       <div class="container">
         <div class="about__info">
           <div
-            v-for="item in aboutInfo"
+            v-for="item in page.infoItems"
             :key="item.title"
             class="about__info-item">
             <div class="about__info-icon">
@@ -25,30 +25,40 @@
             <ScribbleLabel
               kind="about"
               align="center"
-              >{{ about.label }}</ScribbleLabel
+              >{{ page.aboutLabel }}</ScribbleLabel
             >
             <div class="about__heading-copy">
-              <h2 class="section-title">{{ about.title }}</h2>
-              <p>{{ about.description }}</p>
+              <h2 class="section-title">{{ page.aboutHeading }}</h2>
+              <p>{{ page.about }}</p>
             </div>
           </div>
 
           <div class="about__collage">
-            <div class="about__stat about__stat--tr">
-              <strong>{{ about.stats[0].value }}</strong>
-              <span class="about__stat-sub">{{ about.stats[0].subtitle }}</span>
-              <span class="about__stat-title">{{ about.stats[0].title }}</span>
+            <div
+              v-if="page.stats[0]"
+              class="about__stat about__stat--tr">
+              <strong>{{ page.stats[0].value }}</strong>
+              <span
+                v-if="page.stats[0].subtitle"
+                class="about__stat-sub"
+                >{{ page.stats[0].subtitle }}</span
+              >
+              <span
+                v-if="page.stats[0].title"
+                class="about__stat-title"
+                >{{ page.stats[0].title }}</span
+              >
             </div>
 
             <img
               class="about__shot about__shot--left"
-              :src="about.collage.left"
+              :src="page.collage.left"
               alt="" />
 
             <div class="about__center">
               <img
                 class="about__shot about__shot--center"
-                :src="about.collage.center"
+                :src="page.collage.center"
                 alt="" />
               <img
                 class="about__strokes"
@@ -59,13 +69,23 @@
 
             <img
               class="about__shot about__shot--right"
-              :src="about.collage.right"
+              :src="page.collage.right"
               alt="" />
 
-            <div class="about__stat about__stat--bl">
-              <strong>{{ about.stats[1].value }}</strong>
-              <span class="about__stat-sub">{{ about.stats[1].subtitle }}</span>
-              <span class="about__stat-title">{{ about.stats[1].title }}</span>
+            <div
+              v-if="page.stats[1]"
+              class="about__stat about__stat--bl">
+              <strong>{{ page.stats[1].value }}</strong>
+              <span
+                v-if="page.stats[1].subtitle"
+                class="about__stat-sub"
+                >{{ page.stats[1].subtitle }}</span
+              >
+              <span
+                v-if="page.stats[1].title"
+                class="about__stat-title"
+                >{{ page.stats[1].title }}</span
+              >
             </div>
           </div>
         </div>
@@ -75,9 +95,17 @@
 </template>
 
 <script lang="ts" setup>
-import { about, aboutInfo } from '../../data/site'
+import type { PropType } from 'vue'
+import type { FoodPageContent } from '../../types/food'
 import ScribbleLabel from './ScribbleLabel.vue'
 import WaveSeparator from './WaveSeparator.vue'
+
+defineProps({
+  page: {
+    type: Object as PropType<FoodPageContent>,
+    required: true,
+  },
+})
 </script>
 
 <style scoped>

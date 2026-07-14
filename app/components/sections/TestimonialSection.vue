@@ -7,9 +7,9 @@
           <ScribbleLabel
             kind="testimonial"
             align="center"
-            >{{ testimonial.label }}</ScribbleLabel
+            >{{ page.reviewsLabel }}</ScribbleLabel
           >
-          <h2 class="section-title">{{ testimonial.title }}</h2>
+          <h2 class="section-title">{{ page.reviewsHeading }}</h2>
         </div>
 
         <div class="testimonial__feature">
@@ -17,8 +17,8 @@
             <div class="testimonial__thumb-wrap">
               <img
                 class="testimonial__thumb"
-                :src="testimonial.image"
-                :alt="testimonial.author" />
+                :src="page.reviewImage"
+                :alt="page.reviewAuthor" />
               <img
                 class="testimonial__blob"
                 src="/images/deco-hero-blob.svg"
@@ -38,17 +38,17 @@
               src="/images/quote-mark.svg"
               alt=""
               aria-hidden="true" />
-            <p class="testimonial__text">{{ testimonial.quote }}</p>
+            <p class="testimonial__text">{{ page.reviewQuote }}</p>
             <div class="testimonial__author">
-              <strong>{{ testimonial.author }}</strong>
-              <span>{{ testimonial.city }}</span>
+              <strong>{{ page.reviewAuthor }}</strong>
+              <span v-if="page.reviewCity">{{ page.reviewCity }}</span>
             </div>
           </div>
         </div>
 
         <div class="testimonial__features">
           <div
-            v-for="item in testimonial.features"
+            v-for="item in page.features"
             :key="item.title"
             class="testimonial__feature-item">
             <div class="testimonial__feature-icon">
@@ -66,9 +66,17 @@
 </template>
 
 <script lang="ts" setup>
-import { testimonial } from '../../data/site'
+import type { PropType } from 'vue'
+import type { FoodPageContent } from '../../types/food'
 import ScribbleLabel from './ScribbleLabel.vue'
 import WaveSeparator from './WaveSeparator.vue'
+
+defineProps({
+  page: {
+    type: Object as PropType<FoodPageContent>,
+    required: true,
+  },
+})
 </script>
 
 <style scoped>

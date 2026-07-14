@@ -3,22 +3,22 @@
     <div class="hero__stage container">
       <div class="hero__frame">
         <div class="hero__copy">
-          <ScribbleLabel kind="hero">{{ hero.label }}</ScribbleLabel>
+          <ScribbleLabel kind="hero">{{ page.heroBadge }}</ScribbleLabel>
           <div class="hero__text">
-            <h1 class="hero__title">{{ hero.title }}</h1>
-            <p class="hero__desc">{{ hero.description }}</p>
+            <h1 class="hero__title">{{ page.heroTitle }}</h1>
+            <p class="hero__desc">{{ page.heroDescription }}</p>
           </div>
           <a
             class="btn btn-primary"
             href="#menu"
-            >{{ hero.cta }}</a
+            >{{ page.heroCta }}</a
           >
         </div>
 
         <img
           class="hero__thumb"
-          :src="hero.image"
-          :alt="hero.title" />
+          :src="page.heroImage"
+          :alt="page.heroTitle" />
 
         <img
           class="hero__blob"
@@ -31,8 +31,16 @@
 </template>
 
 <script lang="ts" setup>
-import { hero } from '../../data/site'
+import type { PropType } from 'vue'
+import type { FoodPageContent } from '../../types/food'
 import ScribbleLabel from './ScribbleLabel.vue'
+
+defineProps({
+  page: {
+    type: Object as PropType<FoodPageContent>,
+    required: true,
+  },
+})
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@
   "name": "devleadhunter-template-food",
   "type": "module",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./nuxt.config.ts",
   "scripts": {
     "dev": "nuxi dev .playground",
@@ -21,7 +21,7 @@
     "lint:fix": "npm run lint:prettier:fix && npm run lint:eslint:fix"
   },
   "dependencies": {
-    "@devleadhunter/website-content": "github:DevLeadHunter/devleadhunter-website-content#v1.1.0",
+    "@devleadhunter/website-content": "github:DevLeadHunter/devleadhunter-website-content#v1.3.0",
     "@tailwindcss/vite": "^4.3.2",
     "nuxt": "^4.4.8",
     "tailwindcss": "^4.3.2",

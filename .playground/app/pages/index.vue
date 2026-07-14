@@ -1,9 +1,10 @@
 <template>
-  <FoodRoot />
+  <FoodRoot :content="mockSiteContent" />
 </template>
 
 <script lang="ts" setup>
 import FoodRoot from '../../../app/components/FoodRoot.vue'
+import { mockSiteContent } from '../../../content'
 
-useHead({ title: 'Home' })
+useHead({ title: mockSiteContent.businessName ?? 'Food' })
 </script>

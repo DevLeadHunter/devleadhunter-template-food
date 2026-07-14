@@ -9,15 +9,15 @@
           <ScribbleLabel
             kind="menu"
             align="center"
-            >{{ menu.label }}</ScribbleLabel
+            >{{ page.menuLabel }}</ScribbleLabel
           >
-          <h2 class="section-title">{{ menu.title }}</h2>
+          <h2 class="section-title">{{ page.servicesHeading }}</h2>
         </div>
 
         <div class="menu__rows">
           <div class="menu__row">
             <article
-              v-for="item in menu.items.slice(0, 2)"
+              v-for="item in page.menuItems.slice(0, 2)"
               :key="item.title"
               class="menu-card">
               <img
@@ -26,9 +26,13 @@
                 :alt="item.title" />
               <div class="menu-card__text">
                 <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
+                <p v-if="item.description">{{ item.description }}</p>
               </div>
-              <span class="menu-card__price">{{ item.price }}</span>
+              <span
+                v-if="item.price"
+                class="menu-card__price"
+                >{{ item.price }}</span
+              >
             </article>
           </div>
 
@@ -40,7 +44,7 @@
 
           <div class="menu__row">
             <article
-              v-for="item in menu.items.slice(2)"
+              v-for="item in page.menuItems.slice(2)"
               :key="item.title"
               class="menu-card">
               <img
@@ -49,9 +53,13 @@
                 :alt="item.title" />
               <div class="menu-card__text">
                 <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
+                <p v-if="item.description">{{ item.description }}</p>
               </div>
-              <span class="menu-card__price">{{ item.price }}</span>
+              <span
+                v-if="item.price"
+                class="menu-card__price"
+                >{{ item.price }}</span
+              >
             </article>
           </div>
         </div>
@@ -61,9 +69,17 @@
 </template>
 
 <script lang="ts" setup>
-import { menu } from '../../data/site'
+import type { PropType } from 'vue'
+import type { FoodPageContent } from '../../types/food'
 import ScribbleLabel from './ScribbleLabel.vue'
 import WaveSeparator from './WaveSeparator.vue'
+
+defineProps({
+  page: {
+    type: Object as PropType<FoodPageContent>,
+    required: true,
+  },
+})
 </script>
 
 <style scoped>

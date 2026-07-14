@@ -15,11 +15,11 @@
             kind="contact"
             tone="white"
             align="center"
-            >{{ contact.label }}</ScribbleLabel
+            >{{ page.contactLabel }}</ScribbleLabel
           >
           <div class="contact__heading-copy">
-            <h2 class="contact__title">{{ contact.title }}</h2>
-            <p class="contact__desc">{{ contact.description }}</p>
+            <h2 class="contact__title">{{ page.contactHeading }}</h2>
+            <p class="contact__desc">{{ page.contactDescription }}</p>
           </div>
         </div>
 
@@ -27,51 +27,51 @@
           class="contact__form"
           @submit.prevent="onSubmit">
           <label class="field field--full">
-            <span class="sr-only">your Name</span>
+            <span class="sr-only">votre nom</span>
             <input
               v-model="form.name"
               type="text"
               name="name"
-              placeholder="your Name"
+              placeholder="votre nom"
               required />
           </label>
 
           <div class="field-row">
             <label class="field">
-              <span class="sr-only">phone number</span>
+              <span class="sr-only">téléphone</span>
               <input
                 v-model="form.phone"
                 type="tel"
                 name="phone"
-                placeholder="phone number" />
+                placeholder="téléphone" />
             </label>
             <label class="field">
-              <span class="sr-only">email address</span>
+              <span class="sr-only">email</span>
               <input
                 v-model="form.email"
                 type="email"
                 name="email"
-                placeholder="email address"
+                placeholder="email"
                 required />
             </label>
           </div>
 
           <div class="field-row">
             <label class="field">
-              <span class="sr-only">date time</span>
+              <span class="sr-only">date et heure</span>
               <input
                 v-model="form.datetime"
                 type="text"
                 name="datetime"
-                placeholder="date time" />
+                placeholder="date et heure" />
             </label>
             <label class="field">
-              <span class="sr-only">seats</span>
+              <span class="sr-only">couverts</span>
               <input
                 v-model="form.seats"
                 type="text"
                 name="seats"
-                placeholder="seats" />
+                placeholder="couverts" />
             </label>
           </div>
 
@@ -87,24 +87,28 @@
           <button
             class="btn btn-light"
             type="submit">
-            {{ contact.cta }}
+            {{ page.contactCta }}
           </button>
         </form>
 
-        <div class="contact__socials">
+        <div
+          v-if="page.socials.length"
+          class="contact__socials">
           <a
-            v-for="social in contact.socials"
+            v-for="social in page.socials"
             :key="social.name"
             class="contact__social"
             :href="social.href"
-            :aria-label="social.name">
+            :aria-label="social.name"
+            target="_blank"
+            rel="noopener noreferrer">
             <img
               :src="social.icon"
               alt="" />
           </a>
         </div>
 
-        <p class="contact__copy">{{ site.copyright }}</p>
+        <p class="contact__copy">{{ page.copyright }}</p>
       </div>
     </div>
   </section>
@@ -112,8 +116,16 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
-import { contact, site } from '../../data/site'
+import type { PropType } from 'vue'
+import type { FoodPageContent } from '../../types/food'
 import ScribbleLabel from './ScribbleLabel.vue'
+
+const props = defineProps({
+  page: {
+    type: Object as PropType<FoodPageContent>,
+    required: true,
+  },
+})
 
 const form = reactive({
   name: '',
@@ -125,19 +137,23 @@ const form = reactive({
 })
 
 function onSubmit(): void {
-  const subject = encodeURIComponent(`Table reservation — ${form.name || 'Guest'}`)
+  const to: string = props.page.email
+  if (!to) {
+    return
+  }
+  const subject = encodeURIComponent(`Réservation — ${form.name || 'Client'}`)
   const body = encodeURIComponent(
     [
-      `Name: ${form.name}`,
-      `Phone: ${form.phone}`,
-      `Email: ${form.email}`,
-      `Date/Time: ${form.datetime}`,
-      `Seats: ${form.seats}`,
+      `Nom : ${form.name}`,
+      `Téléphone : ${form.phone}`,
+      `Email : ${form.email}`,
+      `Date / heure : ${form.datetime}`,
+      `Couverts : ${form.seats}`,
       '',
       form.message,
     ].join('\n'),
   )
-  window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
+  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
 }
 </script>
 
