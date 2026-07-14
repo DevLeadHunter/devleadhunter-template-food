@@ -161,7 +161,7 @@ function onSubmit(): void {
 
 .contact__inner {
   display: flex;
-  max-width: 760px;
+  max-width: 860px;
   flex-direction: column;
   align-items: center;
   gap: 61px;
@@ -202,7 +202,7 @@ function onSubmit(): void {
 .contact__form {
   display: flex;
   width: 100%;
-  max-width: 576px;
+  max-width: 680px;
   flex-direction: column;
   align-items: center;
   gap: 19px;

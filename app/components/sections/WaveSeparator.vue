@@ -39,20 +39,28 @@ const src = srcMap[props.tone]
 .wave img {
   display: block;
   width: 100%;
-  height: 38px;
+  /* Expanded viewBox includes solid body + jagged fringe */
+  height: 56px;
   object-fit: fill;
+  object-position: center top;
 }
 
-/*
-  Dark tear: green jagged edge sitting on the brand block.
-  Negative margin pulls it flush with the contact body below.
-*/
+.wave--white {
+  background: #fff;
+  margin-top: -28px;
+}
+
+.wave--light {
+  background: var(--color-cream);
+  margin-top: -28px;
+}
+
 .wave--dark {
   background: var(--color-brand);
   margin-bottom: -1px;
 }
 
 .wave--dark img {
-  height: 44px;
+  height: 56px;
 }
 </style>

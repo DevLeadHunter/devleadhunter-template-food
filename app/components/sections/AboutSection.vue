@@ -34,6 +34,16 @@
           </div>
 
           <div class="about__collage">
+            <div class="about__stat about__stat--tr">
+              <img
+                class="about__stat-icon"
+                :src="about.stats[0].icon"
+                alt="" />
+              <strong>{{ about.stats[0].value }}</strong>
+              <span class="about__stat-sub">{{ about.stats[0].subtitle }}</span>
+              <span class="about__stat-title">{{ about.stats[0].title }}</span>
+            </div>
+
             <img
               class="about__shot about__shot--left"
               :src="about.collage.left"
@@ -55,6 +65,16 @@
               class="about__shot about__shot--right"
               :src="about.collage.right"
               alt="" />
+
+            <div class="about__stat about__stat--bl">
+              <img
+                class="about__stat-icon"
+                :src="about.stats[1].icon"
+                alt="" />
+              <strong>{{ about.stats[1].value }}</strong>
+              <span class="about__stat-sub">{{ about.stats[1].subtitle }}</span>
+              <span class="about__stat-title">{{ about.stats[1].title }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -71,14 +91,16 @@ import WaveSeparator from './WaveSeparator.vue'
 <style scoped>
 .about__body {
   background: #fff;
-  padding: 88px 0 120px;
+  padding: 48px 0 120px;
 }
 
 .about__info {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
+  padding-top: 40px;
+  padding-bottom: 20px;
 }
 
 .about__info-item {
@@ -216,9 +238,64 @@ import WaveSeparator from './WaveSeparator.vue'
   pointer-events: none;
 }
 
+.about__stat {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 23.76%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-brand);
+  color: #fff;
+  text-align: center;
+  padding: 24px 18px 18px;
+}
+
+.about__stat-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 4px;
+}
+
+.about__stat--tr {
+  left: 76.24%;
+  top: 1.18%;
+}
+
+.about__stat--bl {
+  left: 0;
+  top: 58.47%;
+}
+
+.about__stat strong {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 42px);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.about__stat-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+}
+
+.about__stat-sub {
+  font-size: 12px;
+  font-weight: 600;
+}
+
 @media (max-width: 1100px) {
   .about__body {
-    padding: 64px 0 80px;
+    padding: 40px 0 80px;
+  }
+
+  .about__info {
+    margin-bottom: 72px;
+    padding-top: 28px;
   }
 
   .about__info-text h3 {
@@ -236,13 +313,14 @@ import WaveSeparator from './WaveSeparator.vue'
 
 @media (max-width: 700px) {
   .about__body {
-    padding: 48px 0 56px;
+    padding: 32px 0 56px;
   }
 
   .about__info {
     grid-template-columns: 1fr;
     gap: 28px;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
+    padding-top: 20px;
   }
 
   .about__content {
@@ -257,6 +335,7 @@ import WaveSeparator from './WaveSeparator.vue'
   }
 
   .about__shot,
+  .about__stat,
   .about__center,
   .about__strokes {
     position: static;
@@ -287,6 +366,11 @@ import WaveSeparator from './WaveSeparator.vue'
   .about__shot--right {
     height: 200px;
     width: 100%;
+  }
+
+  .about__stat {
+    width: 100%;
+    min-height: 160px;
   }
 
   .about__strokes {

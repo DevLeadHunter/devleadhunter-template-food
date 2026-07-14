@@ -73,11 +73,11 @@ const src = srcMap[props.kind]
 }
 
 .scribble-label--contact {
-  gap: 20px;
+  gap: 12px;
 }
 
 .scribble-label--contact .scribble-label__mark {
-  width: 85px;
+  width: 110px;
 }
 
 .scribble-label--testimonial .scribble-label__mark {
