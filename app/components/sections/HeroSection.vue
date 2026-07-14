@@ -39,7 +39,7 @@ import ScribbleLabel from './ScribbleLabel.vue'
 /* Pencil HERO: 1171×612 at x=134 inside 1440 canvas */
 .hero {
   padding-top: 64px;
-  padding-bottom: 48px;
+  padding-bottom: 96px;
 }
 
 .hero__stage {
@@ -149,7 +149,7 @@ import ScribbleLabel from './ScribbleLabel.vue'
 @media (max-width: 700px) {
   .hero {
     padding-top: 28px;
-    padding-bottom: 40px;
+    padding-bottom: 64px;
   }
 
   .hero__frame {

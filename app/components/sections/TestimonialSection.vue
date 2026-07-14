@@ -74,7 +74,7 @@ import WaveSeparator from './WaveSeparator.vue'
 <style scoped>
 .testimonial__body {
   background: #fff;
-  padding: 94px 0 72px;
+  padding: 94px 0 120px;
 }
 
 .testimonial__inner {
@@ -234,7 +234,7 @@ import WaveSeparator from './WaveSeparator.vue'
 
 @media (max-width: 1100px) {
   .testimonial__body {
-    padding: 64px 0 48px;
+    padding: 64px 0 88px;
   }
 
   .testimonial__feature {
@@ -244,7 +244,7 @@ import WaveSeparator from './WaveSeparator.vue'
 
 @media (max-width: 700px) {
   .testimonial__body {
-    padding: 48px 0 40px;
+    padding: 48px 0 72px;
   }
 
   .testimonial__inner {

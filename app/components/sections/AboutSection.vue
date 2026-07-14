@@ -35,10 +35,6 @@
 
           <div class="about__collage">
             <div class="about__stat about__stat--tr">
-              <img
-                class="about__stat-icon"
-                :src="about.stats[0].icon"
-                alt="" />
               <strong>{{ about.stats[0].value }}</strong>
               <span class="about__stat-sub">{{ about.stats[0].subtitle }}</span>
               <span class="about__stat-title">{{ about.stats[0].title }}</span>
@@ -67,10 +63,6 @@
               alt="" />
 
             <div class="about__stat about__stat--bl">
-              <img
-                class="about__stat-icon"
-                :src="about.stats[1].icon"
-                alt="" />
               <strong>{{ about.stats[1].value }}</strong>
               <span class="about__stat-sub">{{ about.stats[1].subtitle }}</span>
               <span class="about__stat-title">{{ about.stats[1].title }}</span>
@@ -92,6 +84,7 @@ import WaveSeparator from './WaveSeparator.vue'
 .about__body {
   background: #fff;
   padding: 48px 0 120px;
+  overflow-x: clip;
 }
 
 .about__info {
@@ -189,6 +182,7 @@ import WaveSeparator from './WaveSeparator.vue'
   max-width: 1170px;
   margin-inline: auto;
   aspect-ratio: 1170 / 679;
+  overflow: hidden;
 }
 
 .about__shot {
@@ -252,13 +246,8 @@ import WaveSeparator from './WaveSeparator.vue'
   background: var(--color-brand);
   color: #fff;
   text-align: center;
-  padding: 24px 18px 18px;
-}
-
-.about__stat-icon {
-  width: 28px;
-  height: 28px;
-  margin-bottom: 4px;
+  padding: 24px 16px 18px;
+  box-sizing: border-box;
 }
 
 .about__stat--tr {
@@ -331,7 +320,13 @@ import WaveSeparator from './WaveSeparator.vue'
     aspect-ratio: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'center center'
+      'left right'
+      'stat-bl stat-tr';
     gap: 14px;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .about__shot,
@@ -339,38 +334,66 @@ import WaveSeparator from './WaveSeparator.vue'
   .about__center,
   .about__strokes {
     position: static;
+    left: auto;
+    top: auto;
     width: 100%;
+    height: auto;
   }
 
   .about__center {
-    grid-column: 1 / -1;
-    width: 100%;
-    max-width: 280px;
+    grid-area: center;
+    width: min(100%, 260px);
     margin-inline: auto;
-    aspect-ratio: 416 / 679;
+    aspect-ratio: 416 / 560;
+    position: relative;
   }
 
   .about__shot--center {
     position: absolute;
     inset: 0;
     width: 100%;
+    height: 100%;
     left: 0;
+    top: 0;
     border-radius: 999px;
+    object-fit: cover;
   }
 
-  .about__center {
-    position: relative;
-  }
-
-  .about__shot--left,
-  .about__shot--right {
+  .about__shot--left {
+    grid-area: left;
     height: 200px;
-    width: 100%;
+    border-radius: var(--radius-arch-sm) var(--radius-arch-sm) 0 0;
+    object-fit: cover;
+  }
+
+  .about__shot--right {
+    grid-area: right;
+    height: 200px;
+    border-radius: var(--radius-arch-sm) var(--radius-arch-sm) 0 0;
+    object-fit: cover;
+  }
+
+  .about__stat--tr {
+    grid-area: stat-tr;
+  }
+
+  .about__stat--bl {
+    grid-area: stat-bl;
   }
 
   .about__stat {
     width: 100%;
-    min-height: 160px;
+    aspect-ratio: 1;
+    min-height: 0;
+    padding: 16px 12px;
+  }
+
+  .about__stat strong {
+    font-size: clamp(24px, 8vw, 32px);
+  }
+
+  .about__stat-title {
+    font-size: 14px;
   }
 
   .about__strokes {
