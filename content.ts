@@ -2,7 +2,7 @@ import type { SiteContent } from './app/types/SiteContent'
 
 /**
  * Mock SiteContent — food truck FR, même forme que `build_site_content` côté API.
- * Utilisé par le `.playground` pour prévisualiser la template en isolation.
+ * URLs Unsplash vérifiées (200). Social = profils réels (pas bare domain).
  */
 export const mockSiteContent: SiteContent = {
   businessName: 'Le Camion du Coin',
@@ -26,8 +26,8 @@ export const mockSiteContent: SiteContent = {
       alt: 'Burger maison',
     },
     {
-      url: 'https://images.unsplash.com/photo-1527477396000-e2717f6f96d2?auto=format&fit=crop&w=1200&q=70',
-      alt: 'Food truck en service',
+      url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=70',
+      alt: 'Service en terrasse',
     },
     {
       url: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=1200&q=70',
@@ -66,29 +66,29 @@ export const mockSiteContent: SiteContent = {
     { day: 'Dimanche – Lundi', hours: 'Fermé (événements sur demande)' },
   ],
   social: [
-    { network: 'instagram', url: 'https://instagram.com/' },
-    { network: 'facebook', url: 'https://facebook.com/' },
+    { network: 'instagram', url: 'https://www.instagram.com/lecamionducoin/' },
+    { network: 'facebook', url: 'https://www.facebook.com/lecamionducoin' },
   ],
   services: [
     {
       title: 'Burger dinde, œuf & fromage',
       description: 'Pain brioché, dinde grillée, œuf coulant, cheddar et sauce maison. — 12 €',
-      icon: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=70',
+      icon: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=70',
     },
     {
       title: 'Hot wings & frites',
       description: 'Ailes marinées, sauce piquante et frites croustillantes. — 11 €',
-      icon: 'https://images.unsplash.com/photo-1527477396000-e2717f6f96d2?auto=format&fit=crop&w=600&q=70',
+      icon: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=70',
     },
     {
       title: 'Duo hot-dog & soda',
       description: 'Deux hot-dogs garnis, frites et boisson au choix. — 13 €',
-      icon: 'https://images.unsplash.com/photo-1619740455993-9e612b1af7a7?auto=format&fit=crop&w=600&q=70',
+      icon: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=70',
     },
     {
       title: 'Soda float glacé',
       description: 'Boisson gazeuse et boule de glace vanille — le classique. — 6 €',
-      icon: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=70',
+      icon: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=70',
     },
   ],
   faq: [

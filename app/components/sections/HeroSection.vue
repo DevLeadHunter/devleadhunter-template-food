@@ -16,11 +16,13 @@
         </div>
 
         <img
+          v-if="page.heroImage"
           class="hero__thumb"
           :src="page.heroImage"
           :alt="page.heroTitle" />
 
         <img
+          v-if="page.heroImage"
           class="hero__blob"
           src="/images/deco-hero-blob.svg"
           alt=""

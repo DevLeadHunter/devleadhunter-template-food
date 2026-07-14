@@ -12,8 +12,12 @@
           <h2 class="section-title">{{ page.reviewsHeading }}</h2>
         </div>
 
-        <div class="testimonial__feature">
-          <div class="testimonial__media">
+        <div
+          v-if="page.hasReview"
+          class="testimonial__feature">
+          <div
+            v-if="page.reviewImage"
+            class="testimonial__media">
             <div class="testimonial__thumb-wrap">
               <img
                 class="testimonial__thumb"

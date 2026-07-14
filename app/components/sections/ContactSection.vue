@@ -19,11 +19,16 @@
           >
           <div class="contact__heading-copy">
             <h2 class="contact__title">{{ page.contactHeading }}</h2>
-            <p class="contact__desc">{{ page.contactDescription }}</p>
+            <p
+              v-if="page.contactDescription"
+              class="contact__desc">
+              {{ page.contactDescription }}
+            </p>
           </div>
         </div>
 
         <form
+          v-if="page.email"
           class="contact__form"
           @submit.prevent="onSubmit">
           <label class="field field--full">
@@ -90,6 +95,13 @@
             {{ page.contactCta }}
           </button>
         </form>
+
+        <a
+          v-else-if="page.phone"
+          class="btn btn-light"
+          :href="`tel:${page.phone}`"
+          >{{ page.phoneDisplay || page.phone }}</a
+        >
 
         <div
           v-if="page.socials.length"

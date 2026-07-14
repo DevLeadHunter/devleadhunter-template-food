@@ -3,7 +3,9 @@
     <WaveSeparator tone="white" />
     <div class="about__body">
       <div class="container">
-        <div class="about__info">
+        <div
+          v-if="page.infoItems.length"
+          class="about__info">
           <div
             v-for="item in page.infoItems"
             :key="item.title"
@@ -29,11 +31,15 @@
             >
             <div class="about__heading-copy">
               <h2 class="section-title">{{ page.aboutHeading }}</h2>
-              <p>{{ page.about }}</p>
+              <p v-if="page.about">{{ page.about }}</p>
             </div>
           </div>
 
-          <div class="about__collage">
+          <div
+            v-if="
+              page.collage.left || page.collage.center || page.collage.right || page.stats.length
+            "
+            class="about__collage">
             <div
               v-if="page.stats[0]"
               class="about__stat about__stat--tr">
@@ -51,11 +57,14 @@
             </div>
 
             <img
+              v-if="page.collage.left"
               class="about__shot about__shot--left"
               :src="page.collage.left"
               alt="" />
 
-            <div class="about__center">
+            <div
+              v-if="page.collage.center"
+              class="about__center">
               <img
                 class="about__shot about__shot--center"
                 :src="page.collage.center"
@@ -68,6 +77,7 @@
             </div>
 
             <img
+              v-if="page.collage.right"
               class="about__shot about__shot--right"
               :src="page.collage.right"
               alt="" />

@@ -14,13 +14,16 @@
           <h2 class="section-title">{{ page.servicesHeading }}</h2>
         </div>
 
-        <div class="menu__rows">
+        <div
+          v-if="page.menuItems.length"
+          class="menu__rows">
           <div class="menu__row">
             <article
               v-for="item in page.menuItems.slice(0, 2)"
               :key="item.title"
               class="menu-card">
               <img
+                v-if="item.image"
                 class="menu-card__thumb"
                 :src="item.image"
                 :alt="item.title" />
@@ -37,17 +40,21 @@
           </div>
 
           <img
+            v-if="page.menuItems.length > 2"
             class="menu__deco"
             src="/images/deco-menu.svg"
             alt=""
             aria-hidden="true" />
 
-          <div class="menu__row">
+          <div
+            v-if="page.menuItems.length > 2"
+            class="menu__row">
             <article
               v-for="item in page.menuItems.slice(2)"
               :key="item.title"
               class="menu-card">
               <img
+                v-if="item.image"
                 class="menu-card__thumb"
                 :src="item.image"
                 :alt="item.title" />
