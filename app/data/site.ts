@@ -2,7 +2,7 @@
 
 export const site = {
   name: 'food trucks',
-  phoneDisplay: '(123) 495-34-54',
+  phoneDisplay: '(123) 495–34–54',
   phoneRaw: '1234953454',
   reservationPhone: '62 123 456789',
   email: 'mail@example.com',
@@ -42,7 +42,7 @@ export const about = {
   label: 'about us',
   title: 'The Delicious Story',
   description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consequat netus tristique at sem ipsum fames. Sed a molestie enim ac sed.',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor consequat netus tristique at sem ipsum fames. Sed a molestie enim ac sed. Aliquam sit amet mauris sit amet nisi sodales aliquam eu vel dolor. Nullam et erat nec magna interdum rutrum sed at nisl. Vestibulum sit amet eros in nunc varius mollis ',
   collage: {
     left: '/images/image-import-4.jpg',
     right: '/images/image-import-7.jpg',
@@ -53,12 +53,14 @@ export const about = {
       value: '14K+',
       title: 'follow us',
       subtitle: 'Followers on instagram',
+      icon: '/images/icon-instagram.svg',
       position: 'top-right' as const,
     },
     {
       value: '14K+',
       title: 'subscribe',
       subtitle: 'subscribers on youtube',
+      icon: '/images/icon-youtube.svg',
       position: 'bottom-left' as const,
     },
   ],
@@ -99,7 +101,7 @@ export const testimonial = {
   label: 'testimonials',
   title: 'What other are saying',
   quote:
-    'They known for its fabulous taste and food anywhere you go your hunger is satisfied the best.',
+    'They known for its fabulous taste and food anywhere you go your hunger is satisfied the best chicken & burgers those are yummy.',
   author: 'Natasha D',
   city: 'Salt Lake City',
   image: '/images/image-import-1.jpg',
@@ -114,15 +116,7 @@ export const contact = {
   label: 'book your table',
   title: 'Make a Reservation',
   description:
-    'Call (123) 495-34-54 from 5a – 11p daily, or book online. Reservations required for parties of 6 or more.',
-  fields: [
-    { name: 'name', label: 'your Name', type: 'text', full: true },
-    { name: 'phone', label: 'phone number', type: 'tel', full: false },
-    { name: 'email', label: 'email address', type: 'email', full: false },
-    { name: 'datetime', label: 'date time', type: 'text', full: false },
-    { name: 'seats', label: 'seats', type: 'text', full: false },
-    { name: 'message', label: 'message', type: 'textarea', full: true },
-  ],
+    'Call (123) 495–34–54 from 5a – 11p daily, or book online Reservations required for parties of 4 or more.',
   cta: 'Book a Table',
   socials: [
     { name: 'facebook', icon: '/images/social-0.svg', href: '#' },

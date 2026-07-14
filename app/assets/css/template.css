@@ -15,8 +15,10 @@
 }
 
 :root {
+  /* Design canvas 1440 → content 1170 + side gutters 135 */
   --container-max: 1170px;
   --page-gutter: 135px;
+  --page-gutter-tablet: 48px;
   --page-gutter-mobile: 20px;
   --space-section: 94px;
   --radius-card: 50px;
@@ -68,6 +70,7 @@ textarea {
   font: inherit;
 }
 
+/* On 1920+: same 1440-wide composition, centered (no stretch) */
 .container {
   width: 100%;
   max-width: calc(var(--container-max) + var(--page-gutter) * 2);
@@ -81,9 +84,10 @@ textarea {
 }
 
 .section-label {
+  position: relative;
   display: inline-flex;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: center;
+  min-height: 39px;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.7px;
@@ -91,10 +95,22 @@ textarea {
   color: var(--color-brand);
 }
 
+.section-label--accent::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  width: 54px;
+  height: 40px;
+  background: url('/images/divider-hero.svg') center / contain no-repeat;
+  transform: translateX(-10%);
+  pointer-events: none;
+}
+
 .section-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 48px;
+  font-size: clamp(32px, 3.4vw, 48px);
   line-height: 1.15;
   color: var(--color-brand);
   text-wrap: balance;
@@ -106,6 +122,7 @@ textarea {
   justify-content: center;
   padding: 12px 30px;
   border: 0;
+  border-radius: 0;
   cursor: pointer;
   font-family: var(--font-display);
   font-size: 20px;
@@ -133,13 +150,26 @@ textarea {
   color: var(--color-brand);
 }
 
-@media (max-width: 900px) {
+/* Medium / laptop */
+@media (max-width: 1200px) {
+  :root {
+    --page-gutter: var(--page-gutter-tablet);
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
   :root {
     --page-gutter: var(--page-gutter-mobile);
   }
 
   .section-title {
-    font-size: 36px;
+    font-size: 32px;
+  }
+
+  .btn {
+    font-size: 18px;
+    padding: 12px 24px;
   }
 }
 

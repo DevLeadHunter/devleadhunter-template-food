@@ -11,7 +11,12 @@
 
       <div class="contact__inner container">
         <div class="contact__heading">
-          <span class="contact__label">{{ contact.label }}</span>
+          <ScribbleLabel
+            kind="contact"
+            tone="white"
+            align="center"
+            >{{ contact.label }}</ScribbleLabel
+          >
           <h2 class="contact__title">{{ contact.title }}</h2>
           <p class="contact__desc">{{ contact.description }}</p>
         </div>
@@ -106,6 +111,7 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { contact, site } from '../../data/site'
+import ScribbleLabel from './ScribbleLabel.vue'
 
 const form = reactive({
   name: '',
@@ -146,8 +152,8 @@ function onSubmit(): void {
   position: absolute;
   left: 0;
   top: 36px;
-  width: 182px;
-  height: 57px;
+  width: min(182px, 22vw);
+  height: auto;
   pointer-events: none;
 }
 
@@ -163,29 +169,23 @@ function onSubmit(): void {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   max-width: 615px;
   text-align: center;
-}
-
-.contact__label {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.7px;
-  text-transform: lowercase;
 }
 
 .contact__title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 48px;
+  font-size: clamp(32px, 3.4vw, 48px);
   line-height: 1.15;
 }
 
 .contact__desc {
   margin: 0;
+  max-width: 578px;
   font-size: 20px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .contact__form {
@@ -217,6 +217,7 @@ function onSubmit(): void {
   color: #fff;
   padding: 15px 20px;
   outline: none;
+  border-radius: 0;
 }
 
 .field--textarea textarea {
@@ -227,7 +228,7 @@ function onSubmit(): void {
 
 .field input::placeholder,
 .field textarea::placeholder {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   text-transform: lowercase;
   font-size: 14px;
   font-weight: 600;
@@ -247,7 +248,7 @@ function onSubmit(): void {
 
 .contact__socials {
   display: flex;
-  gap: 16px;
+  gap: 10px;
 }
 
 .contact__social {
@@ -270,13 +271,17 @@ function onSubmit(): void {
   text-align: center;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 700px) {
   .contact__body {
-    padding: 72px 0 48px;
+    padding: 64px 0 48px;
   }
 
-  .contact__title {
-    font-size: 36px;
+  .contact__inner {
+    gap: 40px;
+  }
+
+  .contact__desc {
+    font-size: 16px;
   }
 
   .field-row {
@@ -284,7 +289,8 @@ function onSubmit(): void {
   }
 
   .contact__deco {
-    width: 120px;
+    width: 110px;
+    top: 20px;
   }
 }
 </style>

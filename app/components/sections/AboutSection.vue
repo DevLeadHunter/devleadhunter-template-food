@@ -22,7 +22,11 @@
 
         <div class="about__content">
           <div class="about__heading">
-            <span class="section-label">{{ about.label }}</span>
+            <ScribbleLabel
+              kind="about"
+              align="center"
+              >{{ about.label }}</ScribbleLabel
+            >
             <div class="about__heading-copy">
               <h2 class="section-title">{{ about.title }}</h2>
               <p>{{ about.description }}</p>
@@ -30,10 +34,15 @@
           </div>
 
           <div class="about__collage">
+            <!-- top-right Instagram circle -->
             <div class="about__stat about__stat--tr">
+              <img
+                class="about__stat-icon"
+                :src="about.stats[0].icon"
+                alt="" />
               <strong>{{ about.stats[0].value }}</strong>
-              <span class="about__stat-title">{{ about.stats[0].title }}</span>
               <span class="about__stat-sub">{{ about.stats[0].subtitle }}</span>
+              <span class="about__stat-title">{{ about.stats[0].title }}</span>
             </div>
 
             <img
@@ -41,20 +50,32 @@
               :src="about.collage.left"
               alt="" />
 
-            <img
-              class="about__shot about__shot--center"
-              :src="about.collage.center"
-              alt="" />
+            <div class="about__center">
+              <img
+                class="about__shot about__shot--center"
+                :src="about.collage.center"
+                alt="" />
+              <img
+                class="about__strokes"
+                src="/images/deco-hero-blob.svg"
+                alt=""
+                aria-hidden="true" />
+            </div>
 
             <img
               class="about__shot about__shot--right"
               :src="about.collage.right"
               alt="" />
 
+            <!-- bottom-left YouTube circle -->
             <div class="about__stat about__stat--bl">
+              <img
+                class="about__stat-icon"
+                :src="about.stats[1].icon"
+                alt="" />
               <strong>{{ about.stats[1].value }}</strong>
-              <span class="about__stat-title">{{ about.stats[1].title }}</span>
               <span class="about__stat-sub">{{ about.stats[1].subtitle }}</span>
+              <span class="about__stat-title">{{ about.stats[1].title }}</span>
             </div>
 
             <img
@@ -71,6 +92,7 @@
 
 <script lang="ts" setup>
 import { about, aboutInfo } from '../../data/site'
+import ScribbleLabel from './ScribbleLabel.vue'
 import WaveSeparator from './WaveSeparator.vue'
 </script>
 
@@ -105,14 +127,15 @@ import WaveSeparator from './WaveSeparator.vue'
 }
 
 .about__info-icon img {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
 }
 
 .about__info-text {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 377px;
 }
 
 .about__info-text h3 {
@@ -153,12 +176,14 @@ import WaveSeparator from './WaveSeparator.vue'
 
 .about__heading-copy p {
   margin: 0;
-  max-width: 640px;
+  width: 100%;
+  max-width: 774px;
   font-size: 20px;
   line-height: 1.6;
   color: var(--color-brand);
 }
 
+/* Pencil collage 1170×679 */
 .about__collage {
   position: relative;
   width: 100%;
@@ -174,30 +199,49 @@ import WaveSeparator from './WaveSeparator.vue'
 
 .about__shot--left {
   left: 0;
-  top: 1.3%;
-  width: 23.76%;
-  height: 50.07%;
+  top: 1.325%; /* 9/679 */
+  width: 23.76%; /* 278/1170 */
+  height: 50.07%; /* 340/679 */
   border-radius: var(--radius-arch-sm) var(--radius-arch-sm) 0 0;
 }
 
 .about__shot--right {
-  left: 76.24%;
-  top: 49.93%;
+  left: 76.24%; /* 892/1170 */
+  top: 49.93%; /* 339/679 */
   width: 23.76%;
   height: 50.07%;
   border-radius: var(--radius-arch-sm) var(--radius-arch-sm) 0 0;
 }
 
-.about__shot--center {
-  left: 32.3%;
+.about__center {
+  position: absolute;
+  left: 27.18%; /* 318/1170 */
   top: 0;
-  width: 35.56%;
+  width: 40.6%; /* 475/1170 */
+  height: 100%;
+}
+
+.about__shot--center {
+  position: absolute;
+  left: 12.42%; /* 59/475 */
+  top: 0;
+  width: 87.58%; /* 416/475 */
   height: 100%;
   border-radius: 208px;
 }
 
+.about__strokes {
+  position: absolute;
+  left: 0;
+  top: 79.5%; /* 540/679 */
+  width: 39%; /* ~185/475 */
+  z-index: 2;
+  pointer-events: none;
+}
+
 .about__stat {
   position: absolute;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -209,7 +253,13 @@ import WaveSeparator from './WaveSeparator.vue'
   background: var(--color-brand);
   color: #fff;
   text-align: center;
-  padding: 24px;
+  padding: 24px 18px 18px;
+}
+
+.about__stat-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 4px;
 }
 
 .about__stat--tr {
@@ -224,7 +274,8 @@ import WaveSeparator from './WaveSeparator.vue'
 
 .about__stat strong {
   font-family: var(--font-display);
-  font-size: 42px;
+  font-size: clamp(28px, 3.2vw, 42px);
+  letter-spacing: 0.05em;
   line-height: 1;
 }
 
@@ -236,60 +287,99 @@ import WaveSeparator from './WaveSeparator.vue'
 .about__stat-sub {
   font-size: 12px;
   font-weight: 600;
-  opacity: 0.95;
 }
 
 .about__leaf {
   position: absolute;
-  left: 72.16%;
+  left: 72.16%; /* 844/1170 */
   top: 5.13%;
-  width: 8%;
-  z-index: 2;
+  width: 8.03%;
+  z-index: 3;
   pointer-events: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .about__body {
-    padding: 56px 0 72px;
+    padding: 64px 0 80px;
+  }
+
+  .about__info-text h3 {
+    font-size: 20px;
+  }
+
+  .about__info-text p {
+    font-size: 16px;
+  }
+
+  .about__heading-copy p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .about__body {
+    padding: 48px 0 56px;
   }
 
   .about__info {
     grid-template-columns: 1fr;
     gap: 28px;
+    margin-bottom: 40px;
+  }
+
+  .about__content {
+    gap: 40px;
   }
 
   .about__collage {
     aspect-ratio: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    height: auto;
+    gap: 14px;
   }
 
   .about__shot,
   .about__stat,
-  .about__leaf {
+  .about__center,
+  .about__leaf,
+  .about__strokes {
     position: static;
     width: 100%;
   }
 
-  .about__shot--center {
+  .about__center {
     grid-column: 1 / -1;
-    height: 420px;
-    border-radius: 160px;
+    width: 100%;
+    max-width: 280px;
+    margin-inline: auto;
+    aspect-ratio: 416 / 679;
+  }
+
+  .about__shot--center {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    left: 0;
+    border-radius: 999px;
+  }
+
+  .about__center {
+    position: relative;
   }
 
   .about__shot--left,
   .about__shot--right {
-    height: 220px;
-  }
-
-  .about__stat {
-    aspect-ratio: 1;
+    height: 200px;
     width: 100%;
   }
 
-  .about__leaf {
+  .about__stat {
+    width: 100%;
+    min-height: 160px;
+  }
+
+  .about__leaf,
+  .about__strokes {
     display: none;
   }
 }

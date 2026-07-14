@@ -1,36 +1,31 @@
 <template>
   <section class="hero">
-    <div class="hero__inner container">
-      <div class="hero__copy">
-        <div class="hero__label">
-          <span class="section-label">{{ hero.label }}</span>
-          <img
-            class="hero__label-line"
-            src="/images/divider-hero.svg"
-            alt=""
-            aria-hidden="true" />
+    <div class="hero__stage container">
+      <div class="hero__frame">
+        <div class="hero__copy">
+          <ScribbleLabel kind="hero">{{ hero.label }}</ScribbleLabel>
+          <div class="hero__text">
+            <h1 class="hero__title">{{ hero.title }}</h1>
+            <p class="hero__desc">{{ hero.description }}</p>
+          </div>
+          <a
+            class="btn btn-primary"
+            href="#menu"
+            >{{ hero.cta }}</a
+          >
         </div>
-        <div class="hero__text">
-          <h1 class="hero__title">{{ hero.title }}</h1>
-          <p class="hero__desc">{{ hero.description }}</p>
-        </div>
-        <a
-          class="btn btn-primary"
-          href="#menu"
-          >{{ hero.cta }}</a
-        >
-      </div>
 
-      <div class="hero__media">
         <img
           class="hero__leaf"
           src="/images/deco-hero-leaf.svg"
           alt=""
           aria-hidden="true" />
+
         <img
           class="hero__thumb"
           :src="hero.image"
           :alt="hero.title" />
+
         <img
           class="hero__blob"
           src="/images/deco-hero-blob.svg"
@@ -43,43 +38,38 @@
 
 <script lang="ts" setup>
 import { hero } from '../../data/site'
+import ScribbleLabel from './ScribbleLabel.vue'
 </script>
 
 <style scoped>
+/* Pencil HERO: 1171×612 at x=134 inside 1440 canvas */
 .hero {
   padding-top: 64px;
-  padding-bottom: 48px;
+  padding-bottom: 100px;
 }
 
-.hero__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 476px);
-  gap: 48px;
-  align-items: center;
+.hero__stage {
+  display: flex;
+  justify-content: center;
+}
+
+.hero__frame {
+  position: relative;
+  width: 100%;
+  max-width: 1171px;
+  aspect-ratio: 1171 / 612;
 }
 
 .hero__copy {
+  position: absolute;
+  left: 0;
+  top: 14.5%; /* 89/612 */
+  z-index: 2;
   display: flex;
+  width: min(55%, 646px);
   flex-direction: column;
   align-items: flex-start;
   gap: 30px;
-  max-width: 646px;
-}
-
-.hero__label {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  min-height: 39px;
-}
-
-.hero__label-line {
-  position: absolute;
-  left: 53px;
-  top: -6px;
-  width: 54px;
-  height: 67px;
-  pointer-events: none;
 }
 
 .hero__text {
@@ -92,7 +82,7 @@ import { hero } from '../../data/site'
   margin: 0;
   max-width: 646px;
   font-family: var(--font-display);
-  font-size: 72px;
+  font-size: clamp(40px, 5vw, 72px);
   line-height: 0.889;
   color: var(--color-brand);
 }
@@ -100,20 +90,16 @@ import { hero } from '../../data/site'
 .hero__desc {
   margin: 0;
   max-width: 483px;
-  font-size: 20px;
+  font-size: clamp(16px, 1.4vw, 20px);
   line-height: 1.6;
   color: var(--color-brand);
 }
 
-.hero__media {
-  position: relative;
-  width: 100%;
-  max-width: 476px;
-  justify-self: end;
-}
-
 .hero__thumb {
-  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40.65%; /* 476/1171 */
   aspect-ratio: 476 / 600;
   object-fit: cover;
   border-radius: var(--radius-arch) var(--radius-arch) 0 0;
@@ -121,48 +107,81 @@ import { hero } from '../../data/site'
 
 .hero__leaf {
   position: absolute;
-  left: -30%;
-  top: 8%;
-  width: 94px;
-  height: 93px;
-  z-index: 2;
+  left: 38.6%; /* 452/1171 */
+  top: 8.3%; /* 51/612 */
+  width: 8%; /* ~94px */
+  z-index: 3;
   pointer-events: none;
 }
 
 .hero__blob {
   position: absolute;
-  left: -19%;
-  bottom: 2%;
-  width: 186px;
-  height: 138px;
-  z-index: 2;
+  left: 51.4%; /* 602/1171 */
+  top: 77.5%; /* 474/612 */
+  width: 15.9%; /* 186/1171 */
+  z-index: 3;
   pointer-events: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .hero {
-    padding-top: 32px;
+    padding-bottom: 64px;
   }
 
-  .hero__inner {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .hero__frame {
+    aspect-ratio: auto;
+    min-height: 0;
   }
 
-  .hero__title {
-    font-size: 48px;
-  }
-
-  .hero__media {
-    justify-self: center;
-  }
-
-  .hero__leaf {
-    left: -8%;
-  }
-
+  .hero__copy,
+  .hero__thumb,
+  .hero__leaf,
   .hero__blob {
-    left: -6%;
+    position: static;
+  }
+
+  .hero__frame {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .hero__copy {
+    width: auto;
+  }
+
+  .hero__thumb {
+    width: 100%;
+    max-width: 420px;
+    justify-self: end;
+  }
+
+  .hero__leaf,
+  .hero__blob {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    padding-top: 28px;
+    padding-bottom: 40px;
+  }
+
+  .hero__frame {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .hero__thumb {
+    max-width: 320px;
+    justify-self: center;
+    order: -1;
+  }
+
+  .hero__copy {
+    align-items: flex-start;
   }
 }
 </style>

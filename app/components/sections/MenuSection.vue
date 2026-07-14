@@ -6,7 +6,11 @@
     <div class="menu__body">
       <div class="menu__inner container">
         <div class="menu__heading">
-          <span class="section-label">{{ menu.label }}</span>
+          <ScribbleLabel
+            kind="menu"
+            align="center"
+            >{{ menu.label }}</ScribbleLabel
+          >
           <h2 class="section-title">{{ menu.title }}</h2>
         </div>
 
@@ -58,6 +62,7 @@
 
 <script lang="ts" setup>
 import { menu } from '../../data/site'
+import ScribbleLabel from './ScribbleLabel.vue'
 import WaveSeparator from './WaveSeparator.vue'
 </script>
 
@@ -98,17 +103,19 @@ import WaveSeparator from './WaveSeparator.vue'
   display: grid;
   width: 100%;
   max-width: 1170px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 100px;
+  grid-template-columns: repeat(2, minmax(0, 535px));
+  justify-content: space-between;
+  gap: 40px 100px;
 }
 
 .menu__deco {
-  width: 164px;
-  height: 89px;
+  width: min(164px, 28vw);
+  height: auto;
 }
 
 .menu-card {
   display: flex;
+  width: 100%;
   min-height: 473px;
   flex-direction: column;
   align-items: center;
@@ -121,8 +128,8 @@ import WaveSeparator from './WaveSeparator.vue'
 }
 
 .menu-card__thumb {
-  width: 200px;
-  height: 200px;
+  width: min(200px, 42vw);
+  height: min(200px, 42vw);
   border-radius: 50%;
   object-fit: cover;
 }
@@ -136,7 +143,7 @@ import WaveSeparator from './WaveSeparator.vue'
 .menu-card__text h3 {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: clamp(20px, 2vw, 24px);
   color: var(--color-brand);
 }
 
@@ -160,18 +167,37 @@ import WaveSeparator from './WaveSeparator.vue'
   letter-spacing: 1.2px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .menu__body {
-    padding: 72px 0;
+    padding: 88px 0 80px;
   }
 
   .menu__row {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
   }
 
   .menu-card {
     min-height: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .menu__body {
+    padding: 56px 0 48px;
+  }
+
+  .menu__inner {
+    gap: 40px;
+  }
+
+  .menu__row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .menu-card__text p {
+    font-size: 16px;
   }
 }
 </style>
